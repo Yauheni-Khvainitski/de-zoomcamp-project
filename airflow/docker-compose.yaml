@@ -66,9 +66,9 @@ x-airflow-common:
     GCP_GCS_BUCKET: 'deutsche-boerse'
 
   volumes:
-    - /home/khv/airflow/dags:/opt/airflow/dags
+    - /home/khv/de-zoomcamp-project/airflow/dags:/opt/airflow/dags
     - /home/khv/airflow/logs:/opt/airflow/logs
-    - /home/khv/airflow/plugins:/opt/airflow/plugins
+    - /home/khv/de-zoomcamp-project/airflow/plugins:/opt/airflow/plugins
     - /home/khv/.google/credentials/:/.google/credentials:ro
 
   user: "${AIRFLOW_UID:-50000}:0"
