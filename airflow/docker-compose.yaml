@@ -45,8 +45,8 @@ x-airflow-common:
   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
   build:
-    context: /home/khv/de-zoomcamp-project/airflow/.
-    dockerfile: /home/khv/de-zoomcamp-project/airflow/Dockerfile
+    context: /usr/local/bin/de-zoomcamp-project/airflow/.
+    dockerfile: /usr/local/bin/de-zoomcamp-project/airflow/Dockerfile
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
@@ -66,10 +66,10 @@ x-airflow-common:
     GCP_GCS_BUCKET: 'deutsche-boerse'
 
   volumes:
-    - /home/khv/airflow/dags:/opt/airflow/dags
-    - /home/khv/airflow/logs:/opt/airflow/logs
-    - /home/khv/airflow/plugins:/opt/airflow/plugins
-    - /home/khv/.google/credentials/:/.google/credentials:ro
+    - /usr/local/bin/airflow/dags:/opt/airflow/dags
+    - /usr/local/bin/airflow/logs:/opt/airflow/logs
+    - /usr/local/bin/airflow/plugins:/opt/airflow/plugins
+    - /usr/local/bin/.google/credentials/:/.google/credentials:ro
 
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
