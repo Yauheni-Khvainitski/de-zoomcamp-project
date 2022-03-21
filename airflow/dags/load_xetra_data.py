@@ -11,29 +11,26 @@ default_args = {
     'depends_on_past': False,
     'start_date': datetime(2021, 1, 1), # use Variable
     'schedule_interval': "@daily",      # use Variable
-    'catchup': False,
 }
 
 s3 = S3('deutsche-boerse-xetra-pds')
 
-exec_date = str('{{ execution_date.strftime(\'%Y-%m-%d\') }}')
-print(exec_date)
+exec_date = "{{ ds }}"
 
-current_date = str(datetime.today().date())
-
-files_list = s3.get_list_of_files(current_date)
+files_list = s3.get_list_of_files(exec_date)
 
 with DAG(
         dag_id,
         default_args=default_args,
         max_active_runs=1,
         max_active_tasks=16,
+        catchup=False
 ) as dag:
 
     s3_download = PythonOperator(
             task_id="s3_download",
             python_callable=s3.download_files,
-            op_args=[files_list, current_date]
+            op_args=[files_list, exec_date]
         )
 
     s3_download
