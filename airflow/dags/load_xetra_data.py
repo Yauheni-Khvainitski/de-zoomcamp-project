@@ -16,7 +16,7 @@ default_args = {
 
 s3 = S3('deutsche-boerse-xetra-pds')
 
-exec_date = '{{ execution_date.strftime(\'%Y-%m-%d\') }}'
+exec_date = str('{{ execution_date.strftime(\'%Y-%m-%d\') }}')
 
 files_list = s3.get_list_of_files(exec_date)
 
