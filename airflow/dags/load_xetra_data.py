@@ -17,8 +17,11 @@ default_args = {
 s3 = S3('deutsche-boerse-xetra-pds')
 
 exec_date = str('{{ execution_date.strftime(\'%Y-%m-%d\') }}')
+print(exec_date)
 
-files_list = s3.get_list_of_files(exec_date)
+current_date = str(datetime.today().date())
+
+files_list = s3.get_list_of_files(current_date)
 
 with DAG(
         dag_id,
@@ -30,7 +33,7 @@ with DAG(
     s3_download = PythonOperator(
             task_id="s3_download",
             python_callable=s3.download_files,
-            op_args=[files_list, exec_date]
+            op_args=[files_list, current_date]
         )
 
     s3_download
