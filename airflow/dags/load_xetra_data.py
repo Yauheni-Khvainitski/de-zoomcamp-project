@@ -15,9 +15,15 @@ default_args = {
 
 s3 = S3('deutsche-boerse-xetra-pds')
 
-exec_date = "{{ ds }}"
+def test():
+    exec_date1 = "{{ ds }}"
+    exec_date2 = "{{ execution_date }}"
+    exec_date3 = '{{ execution_date.strftime("%Y-%m-%d") }}'
+    print(exec_date1)
+    print(exec_date2)
+    print(exec_date3)
 
-files_list = s3.get_list_of_files(exec_date)
+# files_list = s3.get_list_of_files(exec_date)
 
 with DAG(
         dag_id,
@@ -27,10 +33,17 @@ with DAG(
         catchup=False
 ) as dag:
 
-    s3_download = PythonOperator(
-            task_id="s3_download",
-            python_callable=s3.download_files,
-            op_args=[files_list, exec_date]
+    # s3_download = PythonOperator(
+    #         task_id="s3_download",
+    #         python_callable=s3.download_files,
+    #         op_args=[files_list, exec_date]
+    #     )
+
+    # s3_download
+
+    test = PythonOperator(
+            task_id="test",
+            python_callable=test,
         )
 
-    s3_download
+    test
