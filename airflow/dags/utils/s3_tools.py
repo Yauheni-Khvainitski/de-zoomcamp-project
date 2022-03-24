@@ -28,9 +28,13 @@ class S3Tools():
         
         return list_of_files
 
-    def download_files(self, list_of_files, folder_name):
-        curr_path = os.getcwd()
-        download_path = os.path.join(curr_path, folder_name)
+    def download_s3_files(self, dir, prefix):
+
+        print(f'Listing files for {prefix}')
+
+        list_of_files = self.get_list_of_files(prefix)
+
+        download_path = os.path.join(dir, prefix)
 
         if not os.path.exists(download_path):
             os.mkdir(download_path)
@@ -38,7 +42,11 @@ class S3Tools():
         elif os.path.exists(download_path):
             print(f'{download_path} path already exists')
 
+        print(f'Downloading files for {prefix}')
+
         for file in list_of_files:
-            print(f'downloading ... {os.path.join(curr_path, file)}')
-            self.s3.download_file(self.bucket, file, os.path.join(curr_path, file))
-            print(f'Downloaded! {os.path.join(curr_path, file)}')
+            print(f'downloading ... {os.path.join(dir, file)}')
+            self.s3.download_file(self.bucket, file, os.path.join(dir, file))
+            print(f'Downloaded! {os.path.join(dir, file)}')
+
+        print(f'Files for {prefix} successfully downloaded')
