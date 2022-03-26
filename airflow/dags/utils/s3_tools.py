@@ -27,7 +27,7 @@ class S3Tools():
                 for key in page['Contents']:
                     list_of_files.append(key['Key'])
             else:
-                print("No objects returned")
+                print(f'No objects returned for {prefix}')
         
         return list_of_files
 
@@ -57,7 +57,4 @@ class S3Tools():
             print(f'Files for {prefix} successfully downloaded')
         
         else:
-            print('No files to list. Seems to be no data for that date')
-
-s3 = S3Tools('deutsche-boerse-xetra-pds')
-s3.download_s3_files('/Users/aliakseikaravaichyk/Desktop', '2022-03-25')
+            print(f'No files to list for {prefix}. Seems to be no data')
