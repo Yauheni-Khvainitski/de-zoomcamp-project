@@ -61,7 +61,7 @@ with DAG(
     remove_files = PythonOperator(
             task_id='remove_files',
             python_callable=ft.remove_from_dir,
-            op_args=[os.path.join(download_dir, load_dt)]
+            op_args=os.path.join(download_dir, load_dt)
         )
 
     s3_download >> upload_to_raw_gcs >> remove_files
