@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from airflow.operators.bash_operator import BashOperator
 from airflow.models import Variable
 from utils.s3_tools import S3Tools as S3
 import os
 from utils.gcp_tools import GCPTools as GT
+from utils.files_tools import FilesTools as FT
 
 dag_id = 'load_xetra_data'
 
@@ -35,8 +35,7 @@ gcs_raw_path = 'xetra_raw'
 
 s3 = S3('deutsche-boerse-xetra-pds')
 gt = GT(gcs_raw_path)
-
-bash_rm_cmd = f'rm -R {os.path.join(download_dir, load_dt)}'
+ft = FT()
 
 with DAG(
         dag_id,
@@ -59,9 +58,10 @@ with DAG(
             op_args=[download_dir, load_dt]
         )
 
-    remove_files = BashOperator(
-        task_id="remove_files",
-        bash_command=bash_rm_cmd,
-    )
+    remove_files = PythonOperator(
+            task_id='remove_files',
+            python_callable=ft.remove_from_dir,
+            op_args=[os.path.join(download_dir, load_dt)]
+        )
 
     s3_download >> upload_to_raw_gcs >> remove_files
