@@ -3,6 +3,7 @@ import shutil
 
 class FilesTools():
 
+    @staticmethod
     def remove_from_dir(dir):
 
         try: 
