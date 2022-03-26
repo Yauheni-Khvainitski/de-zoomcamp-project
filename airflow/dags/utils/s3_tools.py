@@ -23,8 +23,11 @@ class S3Tools():
             Prefix=prefix,
             ):
 
-            for key in page['Contents']:
-                list_of_files.append(key['Key'])
+            if 'Contents' in page:
+                for key in page['Contents']:
+                    list_of_files.append(key['Key'])
+            else:
+                print("No objects returned")
         
         return list_of_files
 
@@ -34,19 +37,27 @@ class S3Tools():
 
         list_of_files = self.get_list_of_files(prefix)
 
-        download_path = os.path.join(dir, prefix)
+        if list_of_files:
 
-        if not os.path.exists(download_path):
-            os.mkdir(download_path)
-            print(f'{download_path} path created')
-        elif os.path.exists(download_path):
-            print(f'{download_path} path already exists')
+            download_path = os.path.join(dir, prefix)
 
-        print(f'Downloading files for {prefix}')
+            if not os.path.exists(download_path):
+                os.mkdir(download_path)
+                print(f'{download_path} path created')
+            elif os.path.exists(download_path):
+                print(f'{download_path} path already exists')
 
-        for file in list_of_files:
-            print(f'downloading ... {os.path.join(dir, file)}')
-            self.s3.download_file(self.bucket, file, os.path.join(dir, file))
-            print(f'Downloaded! {os.path.join(dir, file)}')
+            print(f'Downloading files for {prefix}')
 
-        print(f'Files for {prefix} successfully downloaded')
+            for file in list_of_files:
+                print(f'downloading ... {os.path.join(dir, file)}')
+                self.s3.download_file(self.bucket, file, os.path.join(dir, file))
+                print(f'Downloaded! {os.path.join(dir, file)}')
+
+            print(f'Files for {prefix} successfully downloaded')
+        
+        else:
+            print('No files to list. Seems to be no data for that date')
+
+s3 = S3Tools('deutsche-boerse-xetra-pds')
+s3.download_s3_files('/Users/aliakseikaravaichyk/Desktop', '2022-03-25')
