@@ -12,13 +12,18 @@ class GCPTools():
 
     def upload_to_gcs(self, local_dir, prefix):
 
-        list_of_files = os.listdir(os.path.join(local_dir, prefix))
+        try:
+            list_of_files = os.listdir(os.path.join(local_dir, prefix))
 
-        bucket = self.STORAGE_CLIENT.bucket(self.BUCKET)
+            bucket = self.STORAGE_CLIENT.bucket(self.BUCKET)
 
-        for file in list_of_files:
-            print(f"Uploading {file} to GCS ...")
-            gcs_obj_name = os.path.join(self.gcs_prefix, prefix, file)
-            blob = bucket.blob(gcs_obj_name)
-            blob.upload_from_filename(os.path.join(local_dir, prefix, file))
-            print(f"{file} successfully uploaded to GCS")
+            for file in list_of_files:
+                print(f"Uploading {file} to GCS ...")
+                gcs_obj_name = os.path.join(self.gcs_prefix, prefix, file)
+                blob = bucket.blob(gcs_obj_name)
+                blob.upload_from_filename(os.path.join(local_dir, prefix, file))
+                print(f"{file} successfully uploaded to GCS")
+        except FileNotFoundError:
+            print(f"Seems to be no files for {prefix}")
+        except:
+            raise
