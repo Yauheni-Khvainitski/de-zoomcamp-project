@@ -56,7 +56,7 @@ with DAG(
     upload_to_raw_gcs = PythonOperator(
             task_id='upload_to_raw_gcs',
             python_callable=gt.upload_to_gcs,
-            op_args=[download_dir, load_dt]å
+            op_args=[download_dir, load_dt]
         )
 
     remove_files = BashOperator(
