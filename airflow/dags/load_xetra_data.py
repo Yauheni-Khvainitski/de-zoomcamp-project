@@ -11,8 +11,9 @@ dag_id = 'load_xetra_data'
 
 var = Variable.get(dag_id, deserialize_json=True)
 
-start_dt = datetime.today() - timedelta(var['define_start_date'])
-start_dt = datetime(start_dt.year, start_dt.month, start_dt.day)
+# start_dt = datetime.today() - timedelta(var['define_start_date'])
+# start_dt = datetime(start_dt.year, start_dt.month, start_dt.day)
+start_dt = datetime(2021, 12, 31)
 dag_schedule = var['dag_schedule']
 
 default_args = {
@@ -42,7 +43,7 @@ with DAG(
         default_args=default_args,
         max_active_runs=1,
         max_active_tasks=16,
-        catchup=False,
+        catchup=True,
         tags=var['dag_tags']
 ) as dag:
 
