@@ -56,13 +56,13 @@ with DAG(
     upload_to_raw_gcs = PythonOperator(
             task_id='upload_to_raw_gcs',
             python_callable=gt.upload_to_gcs,
-            op_args=[download_dir, load_dt]
+            op_args=[download_dir, 'Date=' + load_dt]
         )
 
     remove_files = PythonOperator(
             task_id='remove_files',
             python_callable=ft.remove_from_dir,
-            op_args=[os.path.join(download_dir, 'Date=' + load_dt)]
+            op_args=[os.path.join(download_dir, load_dt)]
         )
 
     s3_download >> upload_to_raw_gcs >> remove_files
