@@ -36,6 +36,7 @@ gcs_raw_path = var['gcs_raw_path']
 
 s3 = S3(var['S3_bucket'])
 gt = GT(gcs_raw_path)
+gcs_part_prefix = 'Date='
 ft = FT()
 
 with DAG(
@@ -56,7 +57,7 @@ with DAG(
     upload_to_raw_gcs = PythonOperator(
             task_id='upload_to_raw_gcs',
             python_callable=gt.upload_to_gcs,
-            op_args=[download_dir, 'Date=' + load_dt]
+            op_args=[download_dir, load_dt, gcs_part_prefix]
         )
 
     remove_files = PythonOperator(

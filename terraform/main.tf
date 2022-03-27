@@ -57,5 +57,6 @@ resource "google_compute_instance_from_machine_image" "vm" {
 
   source_machine_image = "projects/${var.project}/global/machineImages/base-vm-image-2"
 
-  metadata_startup_script = "cd de-zoomcamp-project/airflow/ && git pull && docker-compose up airflow-init && docker-compose up"
+  # doesn't work fix, currently image is made from runnig airflow
+  # metadata_startup_script = "cd de-zoomcamp-project/airflow/ && git pull && docker-compose up airflow-init && docker-compose up"
 }

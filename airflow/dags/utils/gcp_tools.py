@@ -10,7 +10,7 @@ class GCPTools():
         self.gcs_prefix = gcs_prefix
 
 
-    def upload_to_gcs(self, local_dir, prefix):
+    def upload_to_gcs(self, local_dir, prefix, part_prefix):
 
         try:
             list_of_files = os.listdir(os.path.join(local_dir, prefix))
@@ -19,7 +19,7 @@ class GCPTools():
 
             for file in list_of_files:
                 print(f"Uploading {file} to GCS ...")
-                gcs_obj_name = os.path.join(self.gcs_prefix, prefix, file)
+                gcs_obj_name = os.path.join(self.gcs_prefix, part_prefix + prefix, file)
                 blob = bucket.blob(gcs_obj_name)
                 blob.upload_from_filename(os.path.join(local_dir, prefix, file))
                 print(f"{file} successfully uploaded to GCS")
