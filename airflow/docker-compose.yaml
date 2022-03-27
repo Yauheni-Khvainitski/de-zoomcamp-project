@@ -63,10 +63,6 @@ x-airflow-common:
     GCP_PROJECT_ID: 'de-zoomcamp-khv'
     GCP_GCS_BUCKET: 'deutsche_boerse'
 
-    # TODO: Please change GCP_PROJECT_ID & GCP_GCS_BUCKET, as per your config
-    GCP_PROJECT_ID: 'de-zoomcamp-khv'
-    GCP_GCS_BUCKET: 'deutsche-boerse'
-
   volumes:
     - /home/khv/de-zoomcamp-project/airflow/dags:/opt/airflow/dags
     - /home/khv/airflow/logs:/opt/airflow/logs
