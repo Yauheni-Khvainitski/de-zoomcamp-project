@@ -25,7 +25,7 @@ default_args = {
 
 def get_load_dt(variables):
     if variables['load_dt'] == 'NULL':
-        load_dt = 'Date=' + '{{ ds }}'
+        load_dt = '{{ ds }}'
     else:
         load_dt = variables['load_dt']
     return load_dt
@@ -62,7 +62,7 @@ with DAG(
     remove_files = PythonOperator(
             task_id='remove_files',
             python_callable=ft.remove_from_dir,
-            op_args=[os.path.join(download_dir, load_dt)]
+            op_args=[os.path.join(download_dir, 'Date=' + load_dt)]
         )
 
     s3_download >> upload_to_raw_gcs >> remove_files
