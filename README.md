@@ -7,3 +7,4 @@ Development code for Data Engineering Zoomcamp project
 - group multiple files to .parquet and then send to GCS
 - partition BigQuery external table by Date
 - tests and documentation for dbt project
+- fix git pull for terraform "metadata_startup_script", consider changing to .sh script
