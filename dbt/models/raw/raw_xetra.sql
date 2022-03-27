@@ -13,7 +13,7 @@ SELECT
   , Mnemonic AS mnemonic
   , SecurityDesc AS description
   , SecurityType AS security_type
-  , Currency AS ccy
+  , Currency AS currency
   , SecurityID AS securityid
   , Date AS date
   , Time AS time
