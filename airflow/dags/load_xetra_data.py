@@ -13,7 +13,7 @@ var = Variable.get(dag_id, deserialize_json=True)
 
 # start_dt = datetime.today() - timedelta(var['define_start_date'])
 # start_dt = datetime(start_dt.year, start_dt.month, start_dt.day)
-start_dt = datetime(2021, 12, 31)
+start_dt = datetime(2022, 1, 1)
 dag_schedule = var['dag_schedule']
 
 default_args = {
@@ -32,9 +32,9 @@ def get_load_dt(variables):
 
 load_dt = get_load_dt(var)
 download_dir = var['download_dir']
-gcs_raw_path = 'xetra_raw'
+gcs_raw_path = var['gcs_raw_path']
 
-s3 = S3('deutsche-boerse-xetra-pds')
+s3 = S3(var['S3_bucket'])
 gt = GT(gcs_raw_path)
 ft = FT()
 

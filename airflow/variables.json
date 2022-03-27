@@ -1,0 +1,12 @@
+{
+    "load_xetra_data": {
+        "dag_schedule": "0 2 * * *",
+        "dag_tags": [
+            "XETRA"
+        ],
+        "S3_bucket": "deutsche-boerse-xetra-pds",
+        "gcs_raw_path": "xetra_raw",
+        "download_dir": "/opt/airflow",
+        "load_dt": "NULL"
+    }
+}
