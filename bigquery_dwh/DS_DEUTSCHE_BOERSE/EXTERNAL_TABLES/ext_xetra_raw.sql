@@ -25,5 +25,5 @@ OPTIONS
     field_delimiter = ',',
     skip_leading_rows = 1,
     -- hive_partition_uri_prefix = 'gs://deutsche-boerse/xetra_raw',
-    uris = ['gs://deutsche-boerse/xetra_raw/*']
+    uris = ['https://storage.cloud.google.com/deutsche_boerse/xetra_raw/Date=*']
 );
