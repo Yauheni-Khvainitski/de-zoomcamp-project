@@ -1,0 +1,10 @@
+
+version: 2
+
+sources:
+    - name: raw
+      database: de-zoomcamp-khv
+      schema: deutsche_boerse
+
+      tables:
+        - name: ext_raw_xetra
