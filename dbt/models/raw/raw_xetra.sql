@@ -25,6 +25,8 @@ SELECT
   , NumberOfTrades AS trades_num
 FROM
     {{ source('raw', 'ext_raw_xetra') }}
+WHERE
+  Date >= CURRENT_DATE - 40
 
 -- dbt build --m <model.sql> --var 'is_test_run: false'
 {% if var('is_test_run', default=true) %}
