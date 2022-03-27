@@ -58,6 +58,16 @@ The data is rather clean, so, increment for last 40 days is put to **raw layer**
 
 dbt job runs daily and refreshes data for last 7 and 30 days for specified metrics tables.
 
+Job runs succesfully
+<img width="745" alt="image" src="https://user-images.githubusercontent.com/29374700/160301861-dc72c861-f251-4986-bc4c-6e90705888d6.png">
+
+All objects created in the target production dataset
+<img width="361" alt="image" src="https://user-images.githubusercontent.com/29374700/160301901-9771713e-55ff-42c8-bb7c-e9c16f45c1b2.png">
+
+## Dashboard ##
+
+
+
 
 ## Improvements to do: ##
 - separate service accounts for diff services with own permissions (airflow, dbt)
