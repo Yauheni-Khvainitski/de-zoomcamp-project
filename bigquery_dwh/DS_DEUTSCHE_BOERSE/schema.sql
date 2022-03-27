@@ -1,0 +1,1 @@
+CREATE SCHEMA `de-zoomcamp-khv.deutsche_boerse`;
