@@ -25,7 +25,7 @@ default_args = {
 
 def get_load_dt(variables):
     if variables['load_dt'] == 'NULL':
-        load_dt = '{{ ds }}'
+        load_dt = 'Date=' + '{{ ds }}'
     else:
         load_dt = variables['load_dt']
     return load_dt
