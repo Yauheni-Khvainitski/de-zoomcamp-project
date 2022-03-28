@@ -73,8 +73,33 @@ All objects created in the target production dataset
 
 <img width="361" alt="image" src="https://user-images.githubusercontent.com/29374700/160301901-9771713e-55ff-42c8-bb7c-e9c16f45c1b2.png">
 
+
 ## Dashboard ##
 
+Dashboard prepared in Google Data Studio
+
+There is a dashboard with 2 tiles (https://datastudio.google.com/s/igJNnmGAikI):
+* Most traded instruments by traded volume, in millions of EUR (for the last 30 days)
+* Instruments' implied volatility (for the last 7 days)
+
+<img width="1141" alt="image" src="https://user-images.githubusercontent.com/29374700/160334121-c7c1d8cf-f2d3-4eba-95fb-8c0b113df3f7.png">
+
+
+## Reproducibility ##
+
+How to reproduce using existing repo:
+1. Prepare Google cloud service accounts and grant permissions
+2. Prepare virtual machine in Google Cloud. Install docker, docker-compose, git there. Clone repo. Provision credentials file for a service account. Build images using (docker-compose build). Make a machine image of this VM. Terrafrom commands were run from local machine, but could be installed on VM or separate VM.
+3. Change user specific attributes in the code:
+
+* In Terraform variables.tf change project id, region, name of the bucket. In main.tf change the name of the machine image and zone
+* In docker-compose.yaml change env variables GOOGLE_APPLICATION_CREDENTIALS (path to credentials file on VM), GCP_PROJECT_ID, GCP_GCS_BUCKET. Pay attention to volumes (for dags and plugins the repo directories were used, for logs there is a separate directory on VM, also directory for google credentials)
+* In create dataset and external table scripts change project specific attributes
+
+4. As of now, script on startup of the VM doesn't work, so, after Terrafrom deployment connect to VM and run set of commands. Go to repo directory and startup airflow (docker-compose up airflow-init, docker-compose up). Forward port 8080 and check if DAG got from repo
+5. Unpause the DAG and it'll start to load data from 2022-01-01
+6. Go to BigQuery and create dataset using provided CREATE SCHEMA script. Additionaly create dataset for your dbt development environment
+7. Initialize dbt project
 
 
 
@@ -84,3 +109,7 @@ All objects created in the target production dataset
 - partition BigQuery external table by Date
 - tests and documentation for dbt project
 - fix git pull for terraform "metadata_startup_script", consider changing to .sh script
+- place machine image name to varibales
+- https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_7_project#going-the-extra-mile
+
+
