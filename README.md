@@ -1,5 +1,6 @@
 # DOCUMENTATION for the project #
 
+
 ## Problem description ##
 The aim of the project is to deliver metrics calculations based on a finanncial trading market data. **Deutsche Börse Public Dataset** used.
 
@@ -8,11 +9,15 @@ Metrics are:
 * most traded securities/instruments by traded volume
 
 Source data links: https://registry.opendata.aws/deutsche-boerse-pds/
-Overall description: https://github.com/Deutsche-Boerse/dbg-pds
+
+Overall dataset description: https://github.com/Deutsche-Boerse/dbg-pds
+
 Data dictionary: https://github.com/Deutsche-Boerse/dbg-pds/blob/master/docs/data_dictionary.md.
 
 
 ## Cloud technologies used ##
+
+![project-architecture](https://user-images.githubusercontent.com/29374700/160330842-44360fa6-b42a-42be-a695-e366529227ac.jpg)
 
 The source data is **AWS S3**.
 
@@ -60,7 +65,9 @@ dbt job runs daily and refreshes data for last 7 and 30 days for specified metri
 
 Job runs succesfully
 
-<img width="745" alt="image" src="https://user-images.githubusercontent.com/29374700/160301861-dc72c861-f251-4986-bc4c-6e90705888d6.png">
+<img width="1723" alt="image" src="https://user-images.githubusercontent.com/29374700/160331158-b58d6ed4-4720-43cd-b6d7-d3d942517ae6.png">
+
+<img width="1154" alt="image" src="https://user-images.githubusercontent.com/29374700/160331213-66f689d7-b954-48f9-95a1-839d81f6d4b1.png">
 
 All objects created in the target production dataset
 
